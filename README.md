@@ -109,10 +109,10 @@ To test the model with **new sensor readings**:
 
 ## Sample Output
 **Sample before clicking the 'Predict condition' button**
-![Output1](https://github.com/AsuquoAA/Predictive_Maintenance/blob/main/predictive_maintenance_streamlit1.pdf)
+![Output1](https://github.com/AsuquoAA/Predictive_Maintenance/blob/main/Screenshot%202025-03-07%20at%2014.13.48.png)
 
 **Sample after clicking the 'Predict condition' button**
-![Output2](https://github.com/AsuquoAA/Predictive_Maintenance/blob/main/predictive_maintenance_streamlit2.pdf)
+![Output2](https://github.com/AsuquoAA/Predictive_Maintenance/blob/main/Screenshot%202025-03-07%20at%2014.14.10.png)
 
 ---
 
