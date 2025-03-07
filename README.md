@@ -1,9 +1,10 @@
 # 🔧 Predictive Maintenance for Hydraulic Systems
 
 ## 📌 Project Overview
-This project is a **Predictive Maintenance Model** for a **hydraulic system**, built using **machine learning** to assess the health of key equipment (Cooler, Pump, and Accumulator). The model predicts whether the equipment is **Healthy** or **Needs Maintenance**, helping to prevent unexpected failures and optimize maintenance scheduling.
+This project is a **Predictive Maintenance Model** for a **hydraulic system**, built using **machine learning** (XGBoost model to be precise) to assess the health of key equipment (Cooler, Pump, and Accumulator). The model predicts whether the equipment is **Healthy** or **Needs Maintenance**, helping to prevent unexpected failures and optimize maintenance scheduling.
 
 ## 🚀 Features
+- **Database Creation**: Create a database and schema to query the data efficiently for modelling
 - **Machine Learning Model**: Trained using the **UCI Hydraulic Test Dataset**.
 - **PCA for Dimensionality Reduction**: Used to optimize input data for the model.
 - **Streamlit Web App**: A user-friendly interface for real-time predictions.
@@ -25,6 +26,21 @@ The model was trained on the **UCI Hydraulic Test Dataset**, which contains sens
 - **Vibration sensors**
 The dataset can be accessed <a href="https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems">here</a>
 
+---
+
+## Database for UCI Hydraulic Test Dataset
+
+As part of this predictive maintenance project, I designed and implemented a database to efficiently store and manage the UCI Hydraulic Test Dataset. The database allows structured querying and retrieval of sensor data, making it easier to analyze trends, monitor equipment performance, and integrate with machine learning models.
+
+### Database Structure
+The database consists of the following key components:
+- Sensors Table: Stores the 17 sensor readings for each test sample.
+- Equipment Health Table: Contains labels indicating whether the equipment is faulty or healthy.
+
+### Technology Used
+- PgAdmin
+- PostgreSQL
+
 The dataset was processed to create relevant **features**, such as:
 - **Cooler Condition Features**
 - **Pump Leakage Features**
@@ -41,6 +57,7 @@ The dataset was processed to create relevant **features**, such as:
 
 ---
 
+Test Conditions Table: Captures operational conditions under which the data was collected.
 ## 🏗️ Model Development
 ### 1️⃣ **Data Preprocessing**
 - Feature engineering and statistical summaries
