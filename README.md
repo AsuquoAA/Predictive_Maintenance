@@ -21,8 +21,9 @@ To run this model, you need the following:
 3. matplotlib
 4. seaborn
 5. scikit-learn
-6. streamlit
-7. joblib
+6. streamlit 
+7. xgbost
+8. joblib
 
 ### 1️⃣ **Setup the Environment**
 ```sh
