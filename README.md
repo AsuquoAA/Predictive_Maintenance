@@ -1,7 +1,7 @@
 # 🔧 Predictive Maintenance for Hydraulic Systems
 
 ## 📌 Project Overview
-This project is a **Predictive Maintenance Model** for a **hydraulic system**, built using **machine learning** (XGBoost model to be precise) to assess the health of key equipment (Cooler, Pump, and Accumulator). The model predicts whether the equipment is **Healthy** or **Needs Maintenance**, helping to prevent unexpected failures and optimize maintenance scheduling.
+This project is a **Predictive Maintenance Model** for a **hydraulic system**, built using **machine learning** (XGBoost model to be precise) to assess the health of key equipment (Cooler, Pump, and Accumulator). The model uses the values of sensors from a hydraulic test rig to predict if the equipment is **Healthy** or **Needs Maintenance** at any second during the cycle, helping to prevent unexpected failures and optimize maintenance schedules.
 
 ## 🚀 Features
 - **Database Creation**: Create a database and schema to query the data efficiently for modelling
@@ -11,6 +11,42 @@ This project is a **Predictive Maintenance Model** for a **hydraulic system**, b
 - **Interactive Visualizations**: Displays maintenance status with a color-coded bar chart.
 - **Dynamic System Status**: Provides alerts based on the number of components needing maintenance.
 - **Scalable Deployment**: Model can be easily updated and retrained with new data.
+
+---
+
+## Installations
+To run this model, you need the following:
+1. numpy
+2. pandas
+3. matplotlib
+4. seaborn
+5. scikit-learn
+6. streamlit
+7. joblib
+
+### 1️⃣ **Setup the Environment**
+```sh
+pip install -r requirements.txt
+
+```
+## How to run this project
+Clone the Repository:
+code: git clone https://github.com/AsuquoAA/Predictive_Maintenance.git
+Navigating to directory
+code: cd Predictive_Maintenance
+
+---
+
+## 🖥️ How to Use
+### 2️⃣ **Run the Streamlit App**
+```sh
+streamlit run app.py
+```
+
+### 3️⃣ **Make Predictions**
+- Enter sensor readings in the **sidebar**.
+- Click **Predict Condition**.
+- View **Predicted Status & Visualizations**.
 
 ---
 
@@ -24,22 +60,23 @@ The model was trained on the **UCI Hydraulic Test Dataset**, which contains sens
 - **Cooling_Power**
 - **Efficiency Power Signals**
 - **Vibration sensors**
+  
 The dataset can be accessed <a href="https://archive.ics.uci.edu/dataset/447/condition+monitoring+of+hydraulic+systems">here</a>
 
 ---
 
-## Database for UCI Hydraulic Test Dataset
+## Summary of Workflow
 
+### Database for UCI Hydraulic Test Dataset
 As part of this predictive maintenance project, I designed and implemented a database to efficiently store and manage the UCI Hydraulic Test Dataset. The database allows structured querying and retrieval of sensor data, making it easier to analyze trends, monitor equipment performance, and integrate with machine learning models.
 
-### Database Structure
+#### Database Structure
 The database consists of the following key components:
 - Sensors Table: Stores the 17 sensor readings for each test sample.
 - Equipment Health Table: Contains labels indicating whether the equipment is faulty or healthy.
 
-### Technology Used
-- PgAdmin
-- PostgreSQL
+
+### Feature Engineering
 
 The dataset was processed to create relevant **features**, such as:
 - **Cooler Condition Features**
@@ -47,25 +84,15 @@ The dataset was processed to create relevant **features**, such as:
 - **Accumulator Condition Features**
 - **Statistical Summaries of Features**
 
----
 
-## 🛠️ Technologies Used
-- **Python** (Pandas, NumPy, Scikit-Learn, XGBoost)
-- **Joblib** (Model Persistence)
-- **Matplotlib** (Visualizations)
-- **Streamlit** (Web Deployment)
-
----
-
-Test Conditions Table: Captures operational conditions under which the data was collected.
-## 🏗️ Model Development
-### 1️⃣ **Data Preprocessing**
+### 🏗️ Model Development
+#### 1️⃣ **Data Preprocessing**
 - Feature engineering and statistical summaries
 - Handling redundant features
 - Applying **Principal Component Analysis (PCA)** for dimensionality reduction
 - Data scaling using **StandardScaler**
 
-### 2️⃣ **Model Training**
+#### 2️⃣ **Model Training**
 - **Algorithm Used**: XGBoost Classifier
 - **Target Labels**:
   - `0` → **Healthy**
@@ -78,25 +105,17 @@ Test Conditions Table: Captures operational conditions under which the data was 
 - Model and preprocessing tools (`scaler.pkl`, `pca.pkl`, `xgboost_model.pkl`) are saved using **Joblib**.
 - **Streamlit App** allows real-time predictions based on user input sensor values.
 
----
 
-## 🖥️ How to Use
-### 1️⃣ **Setup the Environment**
-```sh
-pip install -r requirements.txt
-```
-
-### 2️⃣ **Run the Streamlit App**
-```sh
-streamlit run app.py
-```
-
-### 3️⃣ **Make Predictions**
-- Enter sensor readings in the **sidebar**.
-- Click **Predict Condition**.
-- View **Predicted Status & Visualizations**.
+## 🛠️ Technologies Used
+- **Python** (Pandas, NumPy, Scikit-Learn, XGBoost)
+- PgAdmin
+- PostgreSQL
+- **Joblib** (Model Persistence)
+- **Matplotlib** (Visualizations)
+- **Streamlit** (Web Deployment)  
 
 ---
+
 
 ## 📌 Key Components of the Web App
 ### **Input Fields**
@@ -114,6 +133,7 @@ streamlit run app.py
 ---
 
 ## 🔄 Testing with New Data
+New data was synthetically generated for testing with filename 'synthetic_df', the dataset contains 17 columns and 60 rows represneting the reading from the 17 sensors for a period of 60 seconds
 To test the model with **new sensor readings**:
 1. Manually enter new readings in the Streamlit interface.
 2. Click **Predict Condition** to view results.
