@@ -94,12 +94,15 @@ The dataset was processed to create relevant **features**, such as:
 
 #### 2️⃣ **Model Training**
 - **Algorithm Used**: XGBoost Classifier
-- **Target Labels**:
+- **Classification type**: Multiclass, Multilabel Classification
+- **Target Labels**: Each sample may have multiple fault conditions simultaneously, requiring a multilabel classification approach.
   - `0` → **Healthy**
   - `1` → **Needs Maintenance**
+  - Multiple labels can be assigned per sample, indicating multiple fault types.
 - **Evaluation Metrics**:
-  - Accuracy, Precision, Recall, and F1-score
-  - Confusion Matrix for classification performance
+  - Macro F1-score
+  - Confusion Matrix
+  - Classification Report
 
 #### 3️⃣ **Model Deployment**
 - Model and preprocessing tools (`scaler.pkl`, `pca.pkl`, `xgboost_model.pkl`) are saved using **Joblib**.
