@@ -101,7 +101,7 @@ The dataset was processed to create relevant **features**, such as:
   - Accuracy, Precision, Recall, and F1-score
   - Confusion Matrix for classification performance
 
-### 3️⃣ **Model Deployment**
+#### 3️⃣ **Model Deployment**
 - Model and preprocessing tools (`scaler.pkl`, `pca.pkl`, `xgboost_model.pkl`) are saved using **Joblib**.
 - **Streamlit App** allows real-time predictions based on user input sensor values.
 
