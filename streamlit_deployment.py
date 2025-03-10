@@ -23,28 +23,47 @@ model,pca,scaler = load_model()
 # Title of the app and a little intoduction
 st.title("🔧 Predictive Maintenance Model")
 st.write("This app predicts the condition of a hydraulic test rig system.")
+# Sidebar instructions
+st.markdown(
+    """
+    <div style="
+        padding: 0px; 
+        color: red; 
+        border-radius: 0px; 
+        font-size: 20px; 
+        font-weight: bold;
+        text-align: left;">
+        Click the <strong>arrow</strong> on the top-left to open the sidebar! Enter sensor readings there. After inputting sensors,
+        proceed to clicking the predict condition button to predict condition of test rig
+    </div>
+    """,
+    unsafe_allow_html=True
+)
+
+ 
 
 
 # Define user input fields (input field is a sidebar)
 st.sidebar.header("Enter Sensor Readings")
+st.sidebar.write("🔹 Fill in the sensor readings below:")
 # Input fields (based on features)
-Pressure_1 = st.sidebar.number_input("Pressure_1 Reading")
-Pressure_2 = st.sidebar.number_input("Pressure_2 Reading")
-Pressure_3 = st.sidebar.number_input("Pressure_3 Reading")
-Pressure_4 = st.sidebar.number_input("Pressure_4 Reading")
-Pressure_5 = st.sidebar.number_input("Pressure_5 Reading")
-Pressure_6 = st.sidebar.number_input("Pressure_6 Reading")
-Temperature_1 = st.sidebar.number_input("Temperature_1 Reading")
-Temperature_2 = st.sidebar.number_input("Temperature_2 Reading")
-Temperature_3 = st.sidebar.number_input("Temperature_3 Reading")
-Temperature_4 = st.sidebar.number_input("Temperature_4 Reading")
-Flow_sensor_1 = st.sidebar.number_input("Flow_sensor_1 Reading")
-Flow_sensor_2 = st.sidebar.number_input("Flow_sensor_2 Reading")
-Stable_efficiency = st.sidebar.number_input("Stable_efficiency Reading")
-Cooling_efficiency = st.sidebar.number_input("Cooling_efficiency Reading")
-Cooling_power = st.sidebar.number_input("Cooling_power Reading")
-Vibration_sensor = st.sidebar.number_input("Vibration_sensor Reading")
-Efficiency_power_signal = st.sidebar.number_input("Efficiency_power_signal Reading")
+Pressure_1 = st.sidebar.number_input("Pressure_1 Reading",value=0.00, format="%.2f")
+Pressure_2 = st.sidebar.number_input("Pressure_2 Reading",value=0.00, format="%.2f")
+Pressure_3 = st.sidebar.number_input("Pressure_3 Reading",value=0.00, format="%.2f")
+Pressure_4 = st.sidebar.number_input("Pressure_4 Reading",value=0.00, format="%.2f")
+Pressure_5 = st.sidebar.number_input("Pressure_5 Reading",value=0.00, format="%.2f")
+Pressure_6 = st.sidebar.number_input("Pressure_6 Reading",value=0.00, format="%.2f")
+Temperature_1 = st.sidebar.number_input("Temperature_1 Reading",value=0.00, format="%.2f")
+Temperature_2 = st.sidebar.number_input("Temperature_2 Reading",value=0.00, format="%.2f")
+Temperature_3 = st.sidebar.number_input("Temperature_3 Reading",value=0.00, format="%.2f")
+Temperature_4 = st.sidebar.number_input("Temperature_4 Reading",value=0.00, format="%.2f")
+Flow_sensor_1 = st.sidebar.number_input("Flow_sensor_1 Reading",value=0.00, format="%.2f")
+Flow_sensor_2 = st.sidebar.number_input("Flow_sensor_2 Reading",value=0.00, format="%.2f")
+Stable_efficiency = st.sidebar.number_input("Stable_efficiency Reading",value=0.00, format="%.2f")
+Cooling_efficiency = st.sidebar.number_input("Cooling_efficiency Reading",value=0.00, format="%.2f")
+Cooling_power = st.sidebar.number_input("Cooling_power Reading",value=0.00, format="%.2f")
+Vibration_sensor = st.sidebar.number_input("Vibration_sensor Reading",value=0.00, format="%.2f")
+Efficiency_power_signal = st.sidebar.number_input("Efficiency_power_signal Reading",value=0.00, format="%.2f")
 
 
 # Convert inputs into a dataframe for prediction
@@ -78,6 +97,11 @@ def process(input_data):
     create_cooler_conditions_features(input_data)
     create_pump_leakage_features(input_data)
     create_accumulator_condition_features(input_data)
+
+    # incase some values are zero, so it doesn't fail
+    if input_data.isnull().sum().sum() > 0:
+        st.warning("⚠️ It seems some sensor readings are missing or some readings are zero(0), please clarify before using model prediction.")
+        input_data = input_data.fillna(0)  # Replace NaN with zero (you can change this to .mean() or .median())
 
     # Apply PCA
     X_scaled = scaler.transform(input_data)
@@ -123,6 +147,7 @@ def plot_prediction(predicted_conditions):
     # Display in Streamlit
     st.pyplot(plt)
 
+
 if st.button('__Predict condition__'):
     # preparing data for prediction
     input_data = process(input_data)
@@ -136,22 +161,16 @@ if st.button('__Predict condition__'):
     # Determine system status based on the count
     if num_maintenance_needed == 3:
         system_status = "⚠️ Immediate maintenance required!"
+        st.error(system_status)
     elif num_maintenance_needed == 2:
         system_status = "⚙️ Schedule maintenance soon."
+        st.warning(system_status)
     elif num_maintenance_needed == 1:
         system_status = "System manageable."
+        st.warning(system_status)
     else:
         system_status = "✅ System is operating normally."
 
-    # Display the system status in Streamlit
-    if num_maintenance_needed == 3:
-        st.error(system_status)
-    elif num_maintenance_needed == 2:
-        st.warning(system_status)
-    elif num_maintenance_needed == 1:
-        st.warning(system_status)    
-    else:
-        st.success(system_status)
     
     # plot prediction visuals in streamlit
     plot_prediction(predicted_conditions)
@@ -164,4 +183,4 @@ st.write(input_data)
 
 
 
-st.write("The model behind this predictions was developed based on the data of the sensor readings of the stable cycles from the UCI Hydraulic Test Dataset for predictive maintenance")        
+st.write("The model behind this predictions was developed based on the data of the sensor readings of the stable cycles from the **UCI Hydraulic Test Rig** Dataset for predictive maintenance")        
