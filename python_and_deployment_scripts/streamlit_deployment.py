@@ -12,13 +12,41 @@ from functions import (summary_stat_of_features,split_and_rename_X_summary,
 
 # Load the trained model
 @st.cache_data
-def load_model():
-    model = os.path.join("model_and_artefacts", "xgboost_model.pkl")  # Update with your saved model path
-    pca = os.path.join("model_and_artefacts", "pca.pkl")
-    scaler = os.path.join("model_and_artefacts", "scaler.pkl")
-    return model,pca,scaler
 
-model,pca,scaler = load_model()
+def load_model():
+    # Base directory = project root (one level up from this file)
+    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    artefact_path = os.path.join(base_path, "model_and_artefacts")
+
+    # Files we expect
+    artefacts = {
+        "model": "xgboost_model.pkl",
+        "pca": "pca.pkl",
+        "scaler": "scaler.pkl"
+    }
+
+    loaded = {}
+
+    for key, filename in artefacts.items():
+        file_path = os.path.join(artefact_path, filename)
+
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(
+                f"❌ Missing artefact: {filename} at {file_path}. "
+                f"Make sure you trained and saved it correctly."
+            )
+
+        try:
+            loaded[key] = joblib.load(file_path)
+        except Exception as e:
+            raise RuntimeError(f"⚠️ Failed to load {filename}: {e}")
+
+    return loaded["model"], loaded["pca"], loaded["scaler"]
+
+
+# Usage
+model, pca, scaler = load_model()
+
 
 
 # Title of the app and a little intoduction
