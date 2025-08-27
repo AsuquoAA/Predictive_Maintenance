@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 import numpy as np
 import pandas as pd
 import joblib  # To load the saved model
@@ -12,9 +13,9 @@ from functions import (summary_stat_of_features,split_and_rename_X_summary,
 # Load the trained model
 @st.cache_data
 def load_model():
-    model = joblib.load("../model_and_artefacts/xgboost_model.pkl")  # Update with your saved model path
-    pca = joblib.load("../model_and_artefacts/pca.pkl")
-    scaler = joblib.load("../model_and_artefacts/scaler.pkl")
+    model = os.path.join("model_and_artefacts", "xgboost_model.pkl")  # Update with your saved model path
+    pca = os.path.join("model_and_artefacts", "pca.pkl")
+    scaler = os.path.join("model_and_artefacts", "scaler.pkl")
     return model,pca,scaler
 
 model,pca,scaler = load_model()
